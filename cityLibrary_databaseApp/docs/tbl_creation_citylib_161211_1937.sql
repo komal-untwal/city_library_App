@@ -1,21 +1,4 @@
--- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
---
--- Host: localhost    Database: citylib
--- ------------------------------------------------------
--- Server version	5.7.16-0ubuntu0.16.04.1
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
 -- Table structure for table `AUTHOR`
 --
 
@@ -83,20 +66,6 @@ CREATE TABLE `BRANCH` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `CHIEF_EDITOR`
---
-
-DROP TABLE IF EXISTS `CHIEF_EDITOR`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `CHIEF_EDITOR` (
-  `EDITOR_ID` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `ENAME` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`EDITOR_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `COPY`
 --
 
@@ -129,23 +98,6 @@ CREATE TABLE `DOCUMENT` (
   PRIMARY KEY (`DOCID`),
   KEY `fk_book_publisher` (`PUBLISHERID`),
   CONSTRAINT `fk_book_publisher` FOREIGN KEY (`PUBLISHERID`) REFERENCES `PUBLISHER` (`PUBLISHERID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `INV_EDITOR`
---
-
-DROP TABLE IF EXISTS `INV_EDITOR`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `INV_EDITOR` (
-  `DOCID` int(11) unsigned NOT NULL,
-  `ISSUE_NO` int(11) unsigned NOT NULL,
-  `IENAME` varchar(255) NOT NULL DEFAULT '',
-  PRIMARY KEY (`DOCID`,`ISSUE_NO`,`IENAME`),
-  KEY `fk_ie_ji` (`ISSUE_NO`,`DOCID`),
-  CONSTRAINT `fk_ie_ji` FOREIGN KEY (`ISSUE_NO`, `DOCID`) REFERENCES `JOURNAL_ISSUE` (`ISSUE_NO`, `DOCID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -255,29 +207,5 @@ CREATE TABLE `RESERVES` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `WRITES`
---
 
-DROP TABLE IF EXISTS `WRITES`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `WRITES` (
-  `AURHORID` int(11) unsigned NOT NULL,
-  `DOCID` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`AURHORID`,`DOCID`),
-  KEY `fk_writes_document` (`DOCID`),
-  CONSTRAINT `fk_writes_author` FOREIGN KEY (`AURHORID`) REFERENCES `AUTHOR` (`AUTHORID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_writes_document` FOREIGN KEY (`DOCID`) REFERENCES `DOCUMENT` (`DOCID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2016-12-12  0:36:16
